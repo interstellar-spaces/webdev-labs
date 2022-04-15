@@ -60,18 +60,30 @@ WHERE following.user_id=26
 
 
 -- Exercise 11
-
+INSERT INTO bookmarks(user_id, post_id)
+VALUES (26, 219);
+INSERT INTO bookmarks(user_id, post_id)
+VALUES (26, 220);
+INSERT INTO bookmarks(user_id, post_id)
+VALUES (26, 221);
 
 
 
 -- Exercise 12
-
-
+DELETE FROM bookmarks
+WHERE post_id = 219;
+DELETE FROM bookmarks
+WHERE post_id = 220;
+DELETE FROM bookmarks
+WHERE post_id = 221;
 
 
 -- Exercise 13
-
+UPDATE users
+SET email = 'knick2022@gmail.com' 
+WHERE id = 26;
 
 
 
 -- Exercise 14
+--optional :)
