@@ -1,3 +1,5 @@
+// ref: https://stackoverflow.com/questions/38627822/increase-the-font-size-with-a-click-of-a-button-using-only-javascript
+
 const makeBigger = () => {
    //alert('make bigger!');
    contentValue = document.querySelector(".content");
