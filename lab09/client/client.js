@@ -185,11 +185,17 @@ const handleServerMessage = ev => {
         console.log(data);
         const html = data.active_users.map(displayUsers).join("");
         document.querySelector("#users-list").firstElementChild.innerHTML = html;
+        //also add text saying who joined
+        const new_user_joined = `<p>${data.user_joined} has joined the chat.</p>`;
+        document.querySelector("#update").innerHTML = new_user_joined;
     } else if (data.type === "disconnect") {
         console.log('A user has just disconnected:');
         console.log(data);
         const html = data.active_users.map(displayUsers).join("");
         document.querySelector("#users-list").firstElementChild.innerHTML = html;
+        //also add text saying who left
+        const new_user_joined = `<p>${data.user_left} has left the chat.</p>`;
+        document.querySelector("#update").innerHTML = new_user_joined;
     } else if (data.type === "chat") {
         console.log('A user has just sent a chat message:');
         console.log(data);

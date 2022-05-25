@@ -33,7 +33,7 @@
         <section class="messages">
             <div id="chat-container" class="hidden">
                 <!-- 2. Append new chat messages to the #chat container -->
-                <div id="chat" aria-live="polite" aria-atomic="false" aria-relevant="additions"></div>
+                <div id="chat" aria-live="polite" aria-atomic="false" aria-relevant="additions" role="log"></div>
             </div>
             <div id="send-container">
                 <input id="message" type="text" placeholder="message">
@@ -44,10 +44,10 @@
         <section class="users">
             <strong id="users-header">Current Users</strong>
             <!-- 1. Update the #users-list with the list of connected users -->
-                <div id="users-list" aria-live="polite" aria-atomic="false" aria-relevant="text additions">
+                <div id="users-list" aria-live="polite" aria-atomic="false" aria-relevant="text additions removals" role="log">
                     <ul></ul>
                 </div>
-                <span id="update" aria-live="polite" aria-atomic="false" aria-relevant="text additions"></span>
+                <span id="update" aria-live="assertive" aria-atomic="false" aria-relevant="text additions"></span>
             </span>
         </section>
     </body>
