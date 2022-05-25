@@ -147,6 +147,11 @@ const utils = {
 };
 
 
+const displayUsers = name => {
+    return `
+    <li>${name}</li>`
+
+}
 /********************
  * 5. Your Code Here
  ********************/
@@ -155,6 +160,9 @@ const handleServerMessage = ev => {
     if (data.type === "login") {
         console.log('A user has just connected:');
         console.log(data);
+        //need to append an element to the users list, 
+        const html = data.active_users.map(displayUsers).join("");
+        document.querySelector("#users-list").firstElementChild.innerHTML = html;
     } else if (data.type === "disconnect") {
         console.log('A user has just disconnected:');
         console.log(data);
