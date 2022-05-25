@@ -150,8 +150,31 @@ const utils = {
 const displayUsers = name => {
     return `
     <li>${name}</li>`
-
 }
+
+const displayComment = message => {
+    //if it's the current user's message:
+    if (message.username == username) {
+        return `
+        <div class="message">
+            <div class="right">
+                <b>You: </b>
+                <p>${message.text}</p>
+            </div>
+        </div>
+        `
+    }
+    return `
+    <div class="message">
+        <div class="left">
+            <b>${message.username}: </b>
+            <p>${message.text}</p>
+        </div>
+    </div>
+    `
+    
+}
+
 /********************
  * 5. Your Code Here
  ********************/
@@ -160,15 +183,20 @@ const handleServerMessage = ev => {
     if (data.type === "login") {
         console.log('A user has just connected:');
         console.log(data);
-        //need to append an element to the users list, 
         const html = data.active_users.map(displayUsers).join("");
         document.querySelector("#users-list").firstElementChild.innerHTML = html;
     } else if (data.type === "disconnect") {
         console.log('A user has just disconnected:');
         console.log(data);
+        const html = data.active_users.map(displayUsers).join("");
+        document.querySelector("#users-list").firstElementChild.innerHTML = html;
     } else if (data.type === "chat") {
         console.log('A user has just sent a chat message:');
         console.log(data);
+        //append the chat message to the #chat div (main panel) with the sender’s name and message. 
+        const html = displayComment(data);
+        document.querySelector("#chat").innerHTML += html
+        //Use the “left” and “right” classes to differentiate the current user from all the other users.
     } else {
         console.error("Message type not recognized.");
         console.log(data);
