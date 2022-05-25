@@ -22,11 +22,41 @@ PORT = os.environ.get('PORT') or os.environ.get('WS_PORT') or 8081
 async def respond_to_message(websocket, message):
     try:
         data = json.loads(message)
+        # print(data)
     except:
         data = { 
             'error': 'error decoding {0}'.format(message),
             'details': 'See instructions for list of valid message formats.'}
         return await websocket.send(json.dumps(data))
+
+    data_type = data.get('type')
+    if data_type == 'login':
+        #add the logged in user to the dict
+        logged_in_users[websocket] = data.get('username')
+        #format the return message
+        data = {
+            "type": "login",
+            "active_users": list(logged_in_users.values()),
+            "user_joined": data.get("username")
+           }
+    elif data_type == 'disconnect':
+        #remove the user from the dict
+        del logged_in_users[websocket]
+        #prepare the response message
+        data = {
+            "type": "disconnect",
+            "active_users": list(logged_in_users.values()),
+            "user_left": data.get("username")
+        }
+    elif data_type == "chat":
+        #if type is chat, then just return the data as is
+        data = data
+    else:
+        #else, ignore it
+        print('Unrecognized message type:', data)
+        return
+
+
     '''
     ******************************************************************
     * Server-Side Logic: Your Job 
@@ -80,7 +110,8 @@ async def respond_to_message(websocket, message):
     ********************************************************************/
     '''
     
-    # await websocket.send(json.dumps(data))
+    #await websocket.send(json.dumps(data))
+    # print(data)
     for sock in logged_in_users:
         # TODO: replace "data" with a message that conforms to
         # the specs above:
